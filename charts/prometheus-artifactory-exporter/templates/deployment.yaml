@@ -69,11 +69,11 @@ spec:
             - name: ARTI_SSL_VERIFY
               value: {{ .Values.options.verifySSL | quote }}
             - name: ARTI_TIMEOUT
-              value: {{ .Values.options.timeout| quote }}
-          envFrom:
-            - secretRef:
-                name: {{ template "prometheus-artifactory-exporter.secret" . }}
-
+              value: {{ .Values.options.timeout | quote }}
+            - name: ARTI_USERNAME
+              value: {{ .Values.artifactory.user | quote }}
+            - name: ARTI_PASSWORD
+              value: {{ .Values.artifactory.pass | quote }}
         {{- with .Values.extraContainers }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
